@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Log</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 2em;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px; /* Space between title and table */
+            color: #333;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        img {
+            max-width: 150px;  /* Adjust the size based on your requirement */
+            max-height: 150px; /* Adjust the size based on your requirement */
+            height: auto;
+            width: auto;
+            border-radius: 10px;
+            object-fit: cover; /* This will make sure the image covers the area without being stretched or squished */
+        }
+        .status-badge {
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        .locked-badge {
+            background-color: orange;
+            color: white;
+        }
+
+        .unlocked-badge {
+            background-color: green;
+            color: white;
+        }
+
+        /* Responsiveness */
+        @media only screen and (max-width: 600px) {
+            th, td {
+                padding: 10px;
+            }
+
+            img {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1 class="dashboard-title">Medicine Dispenser Dashboard</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Image</th>
+        </tr>
+        {% for entry in entries %}
+            <tr>
+                <td>{{ entry['Date'] }}</td>
+                <td>{{ entry['Time'] }}</td>
+                <td>
+                    <span class="status-badge {{ 'locked-badge' if entry['Status'] == 'lock' else 'unlocked-badge' }}">
+                        {{ entry['Status'] }}
+                    </span>
+                </td>
+                <td>{{ entry['Name'] }}</td>
+                <td><img src="{{ entry['ImagePath'] }}" alt="Image not found"></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medicine Dispenser Dashboard</title>
+</head>
+<body>
+    <form method="GET" action="/dashboard">
+        <label for="date">Filter by Date:</label>
+        <input type="date" name="date" id="date">
+        <input type="submit" value="Filter">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+                <tr>
+                    <td><img src="{{ entry.filename }}" width="100"></td>
+                    <td>{{ entry.status }}</td>
+                    <td>{{ entry.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
